@@ -1,0 +1,395 @@
+openapi: 3.0.3
+info:
+  title: Super market - OpenAPI 3.0
+  description: This is a supermarket
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: apiteam@swagger.io
+  version: 1.0 s
+servers:
+- url: https://petstore3.swagger.io/api/v3
+tags:
+- name: user
+  description: Everything about your users
+paths:
+  /user:
+    get:
+      tags:
+      - user
+      summary: get user
+      operationId: user_get
+      parameters:
+      - name: username
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: user.one
+      responses:
+        "200":
+          description: user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+    put:
+      tags:
+      - user
+      summary: edit the user
+      description: edit the user
+      operationId: user_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditUserRequest'
+      responses:
+        "200":
+          description: user created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+    post:
+      tags:
+      - user
+      summary: add the user
+      description: add the user
+      operationId: user_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUserRequest'
+      responses:
+        "200":
+          description: user created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /user/login:
+    post:
+      tags:
+      - user
+      summary: login the user
+      description: login user
+      operationId: user_login_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        "200":
+          description: login successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.user_controller
+  /item/add:
+    get:
+      tags:
+      - item
+      summary: get item
+      operationId: item_add_get
+      parameters:
+      - name: type
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          example: chocolate
+      - name: expired
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          example: true
+      responses:
+        "200":
+          description: user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetItemResponse'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.item_controller
+    put:
+      tags:
+      - item
+      summary: edit item
+      description: edit item
+      operationId: item_add_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditItemRequest'
+      responses:
+        "200":
+          description: item edited
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_2'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.item_controller
+    post:
+      tags:
+      - item
+      summary: add the item
+      description: add the item
+      operationId: item_add_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddItemRequest'
+      responses:
+        "200":
+          description: item created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_3'
+        "400":
+          description: bad request
+      x-openapi-router-controller: swagger_server.controllers.item_controller
+components:
+  schemas:
+    AddUserRequest:
+      required:
+      - name
+      - password
+      - role
+      - username
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasmani
+        username:
+          type: string
+          example: jana.kasmani
+        role:
+          type: string
+          enum:
+          - cashier
+          - customer
+          - admin
+        is_active:
+          type: boolean
+          example: true
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+      additionalProperties: false
+    LoginRequest:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          example: jana kasmani
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+      additionalProperties: false
+    GetUserResponse:
+      required:
+      - name
+      - role
+      - username
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasmani
+        username:
+          type: string
+          example: jana.kasmani
+        role:
+          type: string
+          enum:
+          - cashier
+          - customer
+          - admin
+        is_active:
+          type: boolean
+          example: true
+      additionalProperties: false
+      example:
+        role: cashier
+        is_active: true
+        name: jana kasmani
+        username: jana.kasmani
+    EditUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: jana kasmani
+        username:
+          type: string
+          example: jana.kasmani
+        role:
+          type: string
+          enum:
+          - cashier
+          - customer
+          - admin
+        is_active:
+          type: boolean
+          example: true
+        password:
+          minLength: 4
+          pattern: "([A-Za-z])\\w+"
+          type: string
+          example: 124J
+      additionalProperties: false
+    AddItemRequest:
+      required:
+      - expiry_date
+      - name
+      - price
+      - type
+      type: object
+      properties:
+        name:
+          type: string
+          example: orea
+        type:
+          type: string
+          example: chocolate
+        price:
+          minimum: 0
+          type: number
+          format: float
+          example: 3
+        expiry_date:
+          type: string
+          format: date
+      additionalProperties: false
+    EditItemRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: orea
+        type:
+          type: string
+          example: chocolate
+        price:
+          minimum: 0
+          type: number
+          format: float
+          example: 3
+        expiry_date:
+          type: string
+          format: date
+      additionalProperties: false
+    GetItemResponse:
+      required:
+      - expiry_date
+      - name
+      - price
+      - type
+      type: object
+      properties:
+        item_id:
+          type: string
+          example: "3457"
+        name:
+          type: string
+          example: oreo
+        type:
+          type: string
+          example: chocolate
+        price:
+          minimum: 0
+          type: number
+          format: float
+          example: 3
+        expiry_date:
+          type: string
+          format: date
+      additionalProperties: false
+      example:
+        item_id: "3457"
+        price: 3
+        expiry_date: 2000-01-23
+        name: oreo
+        type: chocolate
+    inline_response_200:
+      type: object
+      properties:
+        message:
+          type: string
+          example: hello
+      additionalProperties: false
+      example:
+        message: hello
+    inline_response_200_1:
+      type: object
+      properties:
+        message:
+          type: string
+          example: welcome
+        token:
+          type: string
+      additionalProperties: false
+      example:
+        message: welcome
+        token: token
+    inline_response_200_2:
+      type: object
+      properties:
+        message:
+          type: string
+          example: item edited succesfully
+      additionalProperties: false
+      example:
+        message: item edited succesfully
+    inline_response_200_3:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Item created succesfully
+      additionalProperties: false
+      example:
+        message: Item created succesfully
+  securitySchemes:
+    access_token:
+      type: apiKey
+      name: access_token
+      in: header
+      x-apikeyInfoFunc: swagger_server.controllers.authorization_controller.check_access_token
+
