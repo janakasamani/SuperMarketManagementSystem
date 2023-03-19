@@ -8,6 +8,9 @@ from swagger_server.models.inline_response200 import InlineResponse200  # noqa: 
 from swagger_server.models.inline_response2001 import InlineResponse2001  # noqa: E501
 from swagger_server.models.login_request import LoginRequest  # noqa: E501
 from swagger_server import util
+from swagger_server.services.user_services.add_user import add_user
+from swagger_server.services.user_services.get_user import get_user
+from swagger_server.services.user_services.login_user import login_user
 
 
 def user_get(username=None):  # noqa: E501
@@ -20,7 +23,7 @@ def user_get(username=None):  # noqa: E501
 
     :rtype: GetUserResponse
     """
-    return 'do some magic!'
+    return get_user(username=username)
 
 
 def user_login_post(body=None):  # noqa: E501
@@ -35,7 +38,7 @@ def user_login_post(body=None):  # noqa: E501
     """
     if connexion.request.is_json:
         body = LoginRequest.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+    return login_user(login_request=body)
 
 
 def user_post(body=None):  # noqa: E501
@@ -50,7 +53,8 @@ def user_post(body=None):  # noqa: E501
     """
     if connexion.request.is_json:
         body = AddUserRequest.from_dict(connexion.request.get_json())  # noqa: E501
-    return 'do some magic!'
+
+    return add_user(user_request=body)
 
 
 def user_put(body=None):  # noqa: E501
