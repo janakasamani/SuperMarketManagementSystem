@@ -21,15 +21,12 @@ def add_user(user_request: AddUserRequest):
 
     user_request_dict = user_request.to_dict() #Automatically
 
+    try:
+        response = collection.insert_one(user_request_dict)
 
-
-
-
-    response  = collection.insert_one(user_request_dict)
-
-    created_id = response.inserted_id
-
-
+        created_id = response.inserted_id
+    except pymongo.errors.DuplicateKeyError:
+        return {"error": "Name already exists"}
 
     message = "User Created Successfully"
     return InlineResponse200(message=message)

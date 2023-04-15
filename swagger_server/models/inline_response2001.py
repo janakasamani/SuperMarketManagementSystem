@@ -14,25 +14,20 @@ class InlineResponse2001(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, message: str=None, token: str=None):  # noqa: E501
+    def __init__(self, message: str=None):  # noqa: E501
         """InlineResponse2001 - a model defined in Swagger
 
         :param message: The message of this InlineResponse2001.  # noqa: E501
         :type message: str
-        :param token: The token of this InlineResponse2001.  # noqa: E501
-        :type token: str
         """
         self.swagger_types = {
-            'message': str,
-            'token': str
+            'message': str
         }
 
         self.attribute_map = {
-            'message': 'message',
-            'token': 'token'
+            'message': 'message'
         }
         self._message = message
-        self._token = token
 
     @classmethod
     def from_dict(cls, dikt) -> 'InlineResponse2001':
@@ -65,24 +60,3 @@ class InlineResponse2001(Model):
         """
 
         self._message = message
-
-    @property
-    def token(self) -> str:
-        """Gets the token of this InlineResponse2001.
-
-
-        :return: The token of this InlineResponse2001.
-        :rtype: str
-        """
-        return self._token
-
-    @token.setter
-    def token(self, token: str):
-        """Sets the token of this InlineResponse2001.
-
-
-        :param token: The token of this InlineResponse2001.
-        :type token: str
-        """
-
-        self._token = token

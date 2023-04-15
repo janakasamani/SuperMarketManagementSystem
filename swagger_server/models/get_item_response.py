@@ -14,7 +14,7 @@ class GetItemResponse(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, item_id: str=None, name: str=None, type: str=None, price: float=None, expiry_date: date=None):  # noqa: E501
+    def __init__(self, item_id: str=None, name: str=None, type: str=None, price: float=None, expiry_date: datetime=None):  # noqa: E501
         """GetItemResponse - a model defined in Swagger
 
         :param item_id: The item_id of this GetItemResponse.  # noqa: E501
@@ -26,14 +26,14 @@ class GetItemResponse(Model):
         :param price: The price of this GetItemResponse.  # noqa: E501
         :type price: float
         :param expiry_date: The expiry_date of this GetItemResponse.  # noqa: E501
-        :type expiry_date: date
+        :type expiry_date: datetime
         """
         self.swagger_types = {
             'item_id': str,
             'name': str,
             'type': str,
             'price': float,
-            'expiry_date': date
+            'expiry_date': datetime
         }
 
         self.attribute_map = {
@@ -151,22 +151,22 @@ class GetItemResponse(Model):
         self._price = price
 
     @property
-    def expiry_date(self) -> date:
+    def expiry_date(self) -> datetime:
         """Gets the expiry_date of this GetItemResponse.
 
 
         :return: The expiry_date of this GetItemResponse.
-        :rtype: date
+        :rtype: datetime
         """
         return self._expiry_date
 
     @expiry_date.setter
-    def expiry_date(self, expiry_date: date):
+    def expiry_date(self, expiry_date: datetime):
         """Sets the expiry_date of this GetItemResponse.
 
 
         :param expiry_date: The expiry_date of this GetItemResponse.
-        :type expiry_date: date
+        :type expiry_date: datetime
         """
         if expiry_date is None:
             raise ValueError("Invalid value for `expiry_date`, must not be `None`")  # noqa: E501

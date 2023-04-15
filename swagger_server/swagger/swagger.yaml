@@ -17,7 +17,7 @@ paths:
       tags:
       - user
       summary: get user
-      operationId: user_get
+      operationId: get_user
       parameters:
       - name: username
         in: query
@@ -42,7 +42,7 @@ paths:
       - user
       summary: edit the user
       description: edit the user
-      operationId: user_put
+      operationId: edit_user
       requestBody:
         content:
           application/json:
@@ -63,7 +63,7 @@ paths:
       - user
       summary: add the user
       description: add the user
-      operationId: user_post
+      operationId: add_user
       requestBody:
         content:
           application/json:
@@ -85,7 +85,7 @@ paths:
       - user
       summary: login the user
       description: login user
-      operationId: user_login_post
+      operationId: login_user
       requestBody:
         content:
           application/json:
@@ -97,7 +97,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/LoginResponse'
         "400":
           description: bad request
       x-openapi-router-controller: swagger_server.controllers.user_controller
@@ -106,9 +106,9 @@ paths:
       tags:
       - item
       summary: get item
-      operationId: item_add_get
+      operationId: get_item
       parameters:
-      - name: type
+      - name: item_type
         in: query
         required: false
         style: form
@@ -139,7 +139,7 @@ paths:
       - item
       summary: edit item
       description: edit item
-      operationId: item_add_put
+      operationId: edit_item
       requestBody:
         content:
           application/json:
@@ -151,16 +151,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/inline_response_200_1'
         "400":
           description: bad request
       x-openapi-router-controller: swagger_server.controllers.item_controller
+      security:
+      - access_token: [ ]
     post:
       tags:
       - item
       summary: add the item
       description: add the item
-      operationId: item_add_post
+      operationId: add_item
       requestBody:
         content:
           application/json:
@@ -172,10 +174,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_3'
+                $ref: '#/components/schemas/inline_response_200_2'
         "400":
           description: bad request
       x-openapi-router-controller: swagger_server.controllers.item_controller
+      security:
+      - access_token: [ ]
 components:
   schemas:
     AddUserRequest:
@@ -222,6 +226,18 @@ components:
           type: string
           example: 124J
       additionalProperties: false
+    LoginResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: welcome
+        token:
+          type: string
+      additionalProperties: false
+      example:
+        message: welcome
+        token: token
     GetUserResponse:
       required:
       - name
@@ -295,7 +311,7 @@ components:
           example: 3
         expiry_date:
           type: string
-          format: date
+          format: date-time
       additionalProperties: false
     EditItemRequest:
       type: object
@@ -313,7 +329,7 @@ components:
           example: 3
         expiry_date:
           type: string
-          format: date
+          format: date-time
       additionalProperties: false
     GetItemResponse:
       required:
@@ -339,12 +355,12 @@ components:
           example: 3
         expiry_date:
           type: string
-          format: date
+          format: date-time
       additionalProperties: false
       example:
         item_id: "3457"
         price: 3
-        expiry_date: 2000-01-23
+        expiry_date: 2000-01-23T04:56:07.000+00:00
         name: oreo
         type: chocolate
     inline_response_200:
@@ -361,23 +377,11 @@ components:
       properties:
         message:
           type: string
-          example: welcome
-        token:
-          type: string
-      additionalProperties: false
-      example:
-        message: welcome
-        token: token
-    inline_response_200_2:
-      type: object
-      properties:
-        message:
-          type: string
           example: item edited succesfully
       additionalProperties: false
       example:
         message: item edited succesfully
-    inline_response_200_3:
+    inline_response_200_2:
       type: object
       properties:
         message:

@@ -14,7 +14,7 @@ class AddItemRequest(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, name: str=None, type: str=None, price: float=None, expiry_date: date=None):  # noqa: E501
+    def __init__(self, name: str=None, type: str=None, price: float=None, expiry_date: datetime=None):  # noqa: E501
         """AddItemRequest - a model defined in Swagger
 
         :param name: The name of this AddItemRequest.  # noqa: E501
@@ -24,13 +24,13 @@ class AddItemRequest(Model):
         :param price: The price of this AddItemRequest.  # noqa: E501
         :type price: float
         :param expiry_date: The expiry_date of this AddItemRequest.  # noqa: E501
-        :type expiry_date: date
+        :type expiry_date: datetime
         """
         self.swagger_types = {
             'name': str,
             'type': str,
             'price': float,
-            'expiry_date': date
+            'expiry_date': datetime
         }
 
         self.attribute_map = {
@@ -125,22 +125,22 @@ class AddItemRequest(Model):
         self._price = price
 
     @property
-    def expiry_date(self) -> date:
+    def expiry_date(self) -> datetime:
         """Gets the expiry_date of this AddItemRequest.
 
 
         :return: The expiry_date of this AddItemRequest.
-        :rtype: date
+        :rtype: datetime
         """
         return self._expiry_date
 
     @expiry_date.setter
-    def expiry_date(self, expiry_date: date):
+    def expiry_date(self, expiry_date: datetime):
         """Sets the expiry_date of this AddItemRequest.
 
 
         :param expiry_date: The expiry_date of this AddItemRequest.
-        :type expiry_date: date
+        :type expiry_date: datetime
         """
         if expiry_date is None:
             raise ValueError("Invalid value for `expiry_date`, must not be `None`")  # noqa: E501

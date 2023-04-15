@@ -14,7 +14,4 @@ def get_user(username = None):
     user = collection.find_one(filter)
 
 
-
-
-
     return GetUserResponse.from_dict(user)
